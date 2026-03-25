@@ -1,12 +1,14 @@
 package com.supplychain.prompt.model;
 
+import java.util.List;
+
 public class SystemPromptCreateRequest {
 
     private String agentCode;
     private String env;
     private String prompt;
     private String role;
-    private String responsibility;
+    private List<String> responsibility;
     private String capability;
     private String scenario;
     private Integer version;
@@ -71,14 +73,14 @@ public class SystemPromptCreateRequest {
     /**
      * 获取职责定义。
      */
-    public String getResponsibility() {
+    public List<String> getResponsibility() {
         return responsibility;
     }
 
     /**
      * 设置职责定义。
      */
-    public void setResponsibility(String responsibility) {
+    public void setResponsibility(List<String> responsibility) {
         this.responsibility = responsibility;
     }
 
