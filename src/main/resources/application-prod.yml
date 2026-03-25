@@ -1,0 +1,27 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+  ai:
+    dashscope:
+      api-key: ${DASHSCOPE_API_KEY_PROD:prod-dashscope-api-key}
+      agent:
+        api-key: ${DASHSCOPE_AGENT_API_KEY_PROD:prod-dashscope-agent-api-key}
+  datasource:
+    url: ${DB_URL:jdbc:mysql://mysql-prod:3306/supplychain_prod?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=true&requireSSL=true}
+    username: ${DB_USERNAME:prod_user}
+    password: ${DB_PASSWORD:change-me}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+server:
+  tomcat:
+    threads:
+      max: ${TOMCAT_THREADS_MAX:200}
+      min-spare: ${TOMCAT_THREADS_MIN_SPARE:20}
+
+logging:
+  level:
+    root: WARN
+    com.supplychain: INFO
+    com.baomidou: WARN
+    org.mybatis: WARN

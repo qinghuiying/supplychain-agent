@@ -1,0 +1,21 @@
+spring:
+  config:
+    activate:
+      on-profile: uat
+  ai:
+    dashscope:
+      api-key: ${DASHSCOPE_API_KEY_UAT:uat-dashscope-api-key}
+      agent:
+        api-key: ${DASHSCOPE_AGENT_API_KEY_UAT:uat-dashscope-agent-api-key}
+  datasource:
+    url: ${DB_URL:jdbc:mysql://mysql-uat:3306/supplychain_uat?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=true}
+    username: ${DB_USERNAME:uat_user}
+    password: ${DB_PASSWORD:uat_password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+logging:
+  level:
+    root: INFO
+    com.supplychain: INFO
+    com.baomidou: INFO
+    org.mybatis: INFO

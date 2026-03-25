@@ -1,0 +1,21 @@
+spring:
+  config:
+    activate:
+      on-profile: test
+  ai:
+    dashscope:
+      api-key: ${DASHSCOPE_API_KEY_TEST:test-dashscope-api-key}
+      agent:
+        api-key: ${DASHSCOPE_AGENT_API_KEY_TEST:test-dashscope-agent-api-key}
+  datasource:
+    url: ${DB_URL:jdbc:mysql://mysql-test:3306/supplychain_test?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false}
+    username: ${DB_USERNAME:test_user}
+    password: ${DB_PASSWORD:test_password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+logging:
+  level:
+    root: INFO
+    com.supplychain: INFO
+    com.baomidou: INFO
+    org.mybatis: INFO

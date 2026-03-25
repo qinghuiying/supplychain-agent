@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: supplychain-agent
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: supplychain-agent
+  template:
+    metadata:
+      labels:
+        app: supplychain-agent
+    spec:
+      containers:
+        - name: supplychain-agent
+          image: IMAGE_PLACEHOLDER
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
+            - name: TZ
+              value: Asia/Shanghai
+            - name: DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: supplychain-agent-secret
+                  key: DB_URL
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: supplychain-agent-secret
+                  key: DB_USERNAME
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: supplychain-agent-secret
+                  key: DB_PASSWORD
+            - name: DASHSCOPE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: supplychain-agent-secret
+                  key: DASHSCOPE_API_KEY
+            - name: DASHSCOPE_AGENT_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: supplychain-agent-secret
+                  key: DASHSCOPE_AGENT_API_KEY
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 15
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: supplychain-agent
+  namespace: default
+spec:
+  selector:
+    app: supplychain-agent
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: ClusterIP

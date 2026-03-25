@@ -1,0 +1,21 @@
+spring:
+  config:
+    activate:
+      on-profile: dev
+  ai:
+    dashscope:
+      api-key: ${DASHSCOPE_API_KEY_DEV:dev-dashscope-api-key}
+      agent:
+        api-key: ${DASHSCOPE_AGENT_API_KEY_DEV:dev-dashscope-agent-api-key}
+  datasource:
+    url: ${DB_URL:jdbc:mysql://127.0.0.1:3306/supplychain_dev?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+logging:
+  level:
+    root: INFO
+    com.supplychain: DEBUG
+    com.baomidou: DEBUG
+    org.mybatis: DEBUG
