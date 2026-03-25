@@ -80,9 +80,9 @@ public final class SystemPromptBuilder {
     /**
      * 是否完整提供结构化字段。
      */
-    public static boolean hasAllLayers(String role, String responsibility, String capability, String scenario) {
+    public static boolean hasAllLayers(String role, List<String> responsibility, String capability, String scenario) {
         return StringUtils.hasText(role)
-                && StringUtils.hasText(responsibility)
+                && !Objects.isNull(responsibility)
                 && StringUtils.hasText(capability)
                 && StringUtils.hasText(scenario);
     }

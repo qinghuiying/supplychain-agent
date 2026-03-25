@@ -13,6 +13,9 @@ import com.supplychain.prompt.util.SystemPromptBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
+import java.util.Objects;
+
 @Service
 public class SystemPromptService {
 
@@ -150,7 +153,7 @@ public class SystemPromptService {
     private String resolvePromptContent(
             String prompt,
             String role,
-            String responsibility,
+            List<String> responsibility,
             String capability,
             String scenario
     ) {
@@ -167,7 +170,7 @@ public class SystemPromptService {
             return prompt;
         }
         if (StringUtils.hasText(role)
-                || StringUtils.hasText(responsibility)
+                || !Objects.isNull(responsibility)
                 || StringUtils.hasText(capability)
                 || StringUtils.hasText(scenario)) {
             throw new BizException(ApiCode.PARAM_INVALID.code(), SystemPromptBuilder.structuredFieldsRequiredMessage());
